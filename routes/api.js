@@ -4,22 +4,24 @@ module.exports = function (app) {
 
   app.route('/api/issues/:project')
   
-    .get(function (req, res){
+    .get((req, res) => {
       let project = req.params.project;
       
     })
     
-    .post(function (req, res){
+    .post((req, res) => {
+      let project = req.params.project;
+
+      res.json(project);
+      
+    })
+    
+    .put((req, res) => {
       let project = req.params.project;
       
     })
     
-    .put(function (req, res){
-      let project = req.params.project;
-      
-    })
-    
-    .delete(function (req, res){
+    .delete((req, res) => {
       let project = req.params.project;
       
     });
