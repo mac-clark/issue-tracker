@@ -82,6 +82,38 @@ module.exports = function (app) {
         status_text,
         open,
       } = req.body;
+
+      if (!_id) {
+        res.json({ error: "missing _id" });
+        return;
+      }
+      if (
+        !issue_title &&
+        !issue_text &&
+        !created_by &&
+        !assigned_to &&
+        !status_text &&
+        !open
+      ) {
+        res.json({ error: "no update field(s) sent", _id: _id});
+        return;
+      }
+
+      try {
+        const projectModel = await ProjectModel.findOne({ name: projectName });
+        if (!projectModel) {
+          throw new Error("project not found");
+        }
+
+        let issue = await IssueModel.findByIdAndUpdate(_id, {
+          ...req.body,
+          updated_on: new Date(),
+        });
+        await issue.save();
+        res.json({ result: "successfully updated", _id: _id });
+      } catch (err) {
+        res.status(500).json({ error: "could not update", _id: _id });
+      }
     })
     
     .delete((req, res) => {
