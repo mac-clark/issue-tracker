@@ -30,7 +30,7 @@ module.exports = function (app) {
         }
       } catch (err) {
         console.error(err);
-        res.status(500).json({ error: err });
+        res.status(200).json({ error: err });
       }
     })
     
@@ -65,7 +65,7 @@ module.exports = function (app) {
         res.json(issue);
       } catch (err) {
         console.error(err);
-        res.status(500).json({ error: err });
+        res.status(200).json({ error: err });
       }
       
     })
@@ -112,7 +112,7 @@ module.exports = function (app) {
         await issue.save();
         res.json({ result: "successfully updated", _id: _id });
       } catch (err) {
-        res.status(500).json({ error: "could not update", _id: _id });
+        res.status(200).json({ error: "could not update", _id: _id });
       }
     })
     
@@ -140,7 +140,7 @@ module.exports = function (app) {
         }
         res.json({ result: "successfully deleted", _id: _id});
       } catch (err) {
-        res.status(500).json({ error: "could not delete", _id: _id});
+        res.status(200).json({ error: "could not delete", _id: _id});
       }
       
     });
